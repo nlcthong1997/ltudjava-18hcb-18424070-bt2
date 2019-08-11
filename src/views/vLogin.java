@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -13,12 +15,13 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import hibernate.dUser;
+import controllers.cUser;
+import hibernate.result;
 
 public class vLogin {
 
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField taikhoanField;
 	private JPasswordField passwordField;
 
 	/**
@@ -57,8 +60,8 @@ public class vLogin {
 		
 		JLabel lblTaiKhoan = new JLabel("Tai khoan");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		taikhoanField = new JTextField();
+		taikhoanField.setColumns(10);
 		
 		JLabel lblMatKhau = new JLabel("Mat khau");
 		
@@ -67,7 +70,22 @@ public class vLogin {
 		JButton btnDangNhap = new JButton("Dang nhap");
 		btnDangNhap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dUser.getUsers();
+				String username = taikhoanField.getText();
+				String password = passwordField.getText();
+				result rs = cUser.login(username, password);
+				if (rs.isStatus()) {
+					if (rs.getTypeUser().equals("gv")) {
+						frame.dispose();
+						vMinistry window = new vMinistry(rs.getIdUser(), rs.getUserName());
+						window.frame.setVisible(true);
+					} else {
+						frame.dispose();
+						vStudent window = new vStudent(rs.getIdUser(), rs.getUserName());
+						window.frame.setVisible(true);
+					}
+				} else {
+					JOptionPane.showMessageDialog(frame, rs.getMessage());
+				}
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
@@ -89,7 +107,7 @@ public class vLogin {
 										.addGap(18)
 										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 											.addComponent(passwordField, Alignment.TRAILING)
-											.addComponent(textField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)))))))
+											.addComponent(taikhoanField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)))))))
 					.addContainerGap(104, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -100,7 +118,7 @@ public class vLogin {
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTaiKhoan)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(taikhoanField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblMatKhau)

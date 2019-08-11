@@ -1,21 +1,23 @@
 package hibernate;
 
 import java.util.ArrayList;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import java.util.List;
 
 import models.mUser;
 
 public class dUser {
-	public static void getUsers () {
+	public static ArrayList<mUser> login (String username, String password) {
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Query query = session.createQuery("from mUser");
+		
+		String hql = "FROM mUser WHERE username = :username AND password = :password";
+		Query query = session.createQuery(hql);
+		query.setParameter("username", username);
+		query.setParameter("password", password);
+		
 		ArrayList<mUser> listUser = (ArrayList<mUser>)query.list();
-		for (mUser user : listUser) {
-			System.out.println(user.getUsername() + " " + user.getPassword() + " " + user.getType() );
-		}
+		return listUser;
 	}
 }
