@@ -29,6 +29,10 @@ import java.awt.CardLayout;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import controllers.cMinistry;
 
 public class vMinistry {
 
@@ -60,14 +64,14 @@ public class vMinistry {
 	 * Create the application.
 	 * @wbp.parser.entryPoint
 	 */
-	public vMinistry(String idUser, String userName) {
+	public vMinistry(int idUser, String userName) {
 		initialize(idUser, userName);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(String idUser, String userName) {
+	private void initialize(int idUser, String userName) {
 		frame = new JFrame("Giao vu - " + userName);
 		//frame.setSize(685, 485);
 		frame.setBounds(450, 250, 686, 485);
@@ -196,7 +200,7 @@ public class vMinistry {
 		
 		JButton btnDanhSachPhuc = new JButton("Danh sach phuc khao");
 		
-		JLabel label_2 = new JLabel("------------------------------------------------------------------------------------------------------------------------");
+		JLabel label_2 = new JLabel("-----------------------------------------------------------------------------------------------------------------------------");
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
@@ -206,13 +210,13 @@ public class vMinistry {
 						.addComponent(label_2)
 						.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
 							.addComponent(btnDanhSachPhuc)
-							.addGroup(Alignment.LEADING, gl_panel_3.createSequentialGroup()
-								.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 244, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel_3.createSequentialGroup()
+								.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+								.addGap(18)
+								.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
+								.addGap(18)
 								.addComponent(btnTaoPhucKhao, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))))
-					.addGap(32))
+					.addGap(70))
 		);
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
@@ -280,6 +284,11 @@ public class vMinistry {
 		panel_3.setLayout(gl_panel_3);
 		
 		JButton btnDanhSachLop = new JButton("Danh sach lop");
+		btnDanhSachLop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cMinistry.importListStudent("dslop");
+			}
+		});
 		
 		JButton btnImpThoiKhoaBieu = new JButton("Thoi khoa bieu");
 		
@@ -351,8 +360,8 @@ public class vMinistry {
 					.addGap(26)
 					.addComponent(btnDanhSach)
 					.addGap(18)
-					.addComponent(btnBangDiem)
-					.addContainerGap(14, Short.MAX_VALUE))
+					.addComponent(btnBangDiem, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(26, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -362,7 +371,7 @@ public class vMinistry {
 						.addComponent(cbbLopTheoMon, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnDanhSach)
 						.addComponent(btnBangDiem))
-					.addContainerGap(2, Short.MAX_VALUE))
+					.addContainerGap(15, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		frame.getContentPane().setLayout(groupLayout);

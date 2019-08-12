@@ -12,7 +12,7 @@ public class mUser {
 	@Id
 	@GeneratedValue
 	@Column(name="id")
-	private String id;
+	private int id;
 	
 	@Column(name="username")
 	private String username;
@@ -25,7 +25,7 @@ public class mUser {
 	
 	public mUser() {}
 	
-	public mUser(String id, String username, String password, String type) {
+	public mUser(int id, String username, String password, String type) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -33,11 +33,11 @@ public class mUser {
 		this.type = type;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

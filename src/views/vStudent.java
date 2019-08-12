@@ -31,14 +31,14 @@ public class vStudent {
 	/**
 	 * Create the application.
 	 */
-	public vStudent(String idUser, String userName) {
+	public vStudent(int idUser, String userName) {
 		initialize(idUser, userName);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(String idUser, String userName) {
+	private void initialize(int idUser, String userName) {
 		frame = new JFrame("Sinh vien - " + userName);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

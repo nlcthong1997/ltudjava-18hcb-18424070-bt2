@@ -4,10 +4,10 @@ public class result {
 	private boolean status;
 	private String message;
 	private String typeUser;
-	private String idUser;
+	private int idUser;
 	private String userName;
 
-	public result(boolean status, String message, String typeUser, String idUser, String userName) {
+	public result(boolean status, String message, String typeUser, int idUser, String userName) {
 		super();
 		this.status = status;
 		this.message = message;
@@ -40,11 +40,11 @@ public class result {
 		this.typeUser = typeUser;
 	}
 
-	public String getIdUser() {
+	public int getIdUser() {
 		return idUser;
 	}
 
-	public void setIdUser(String idUser) {
+	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
 

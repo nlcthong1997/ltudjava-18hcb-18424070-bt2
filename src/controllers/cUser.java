@@ -12,7 +12,7 @@ public class cUser {
 		if (user.size() > 0) {
 			return new result(true, "Dang nhap thanh cong", user.get(0).getType(), user.get(0).getId(), user.get(0).getUsername()); 
 		} else {
-			return new result(false, "Tai khoan khong dung", "", "", "");
+			return new result(false, "Tai khoan khong dung", "", 0, "");
 		}
 	}
 }
