@@ -9,6 +9,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import hibernate.dMinistry;
 import models.mStudent;
+import models.mSchedule;
 
 public class cMinistry {
 	public static void importListStudent (String type) {
@@ -30,13 +31,17 @@ public class cMinistry {
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = jfc.getSelectedFile();
 			String path = jfc.getSelectedFile().getPath();
-			if (type.equals("dslop")) {
-				try {
+			try {
+				if (type.equals("dslop")) {
 					ArrayList<mStudent> listStudent = dMinistry.readCsvStudent(path);
-					
-				} catch (IOException e) {
-					e.printStackTrace();
+					dMinistry.writeCsvStudent(listStudent);
 				}
+				if (type.equals("tkb")) {
+					ArrayList<mSchedule> listSchedule = dMinistry.readCsvSchedule(path);
+					dMinistry.writeCsvSchedule(listSchedule);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	}
