@@ -9,6 +9,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import hibernate.dMinistry;
 import models.mStudent;
+import models.mPoint;
 import models.mSchedule;
 
 public class cMinistry {
@@ -34,11 +35,15 @@ public class cMinistry {
 			try {
 				if (type.equals("dslop")) {
 					ArrayList<mStudent> listStudent = dMinistry.readCsvStudent(path);
-					dMinistry.writeCsvStudent(listStudent);
+					flag = dMinistry.writeCsvStudent(listStudent);
 				}
 				if (type.equals("tkb")) {
 					ArrayList<mSchedule> listSchedule = dMinistry.readCsvSchedule(path);
-					dMinistry.writeCsvSchedule(listSchedule);
+					flag = dMinistry.writeCsvSchedule(listSchedule);
+				}
+				if (type.equals("bangdiem")) {
+					ArrayList<mPoint> listPoint = dMinistry.readCsvPoint(path);
+					flag = dMinistry.writeCsvPoint(listPoint);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
