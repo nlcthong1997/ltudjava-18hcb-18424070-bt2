@@ -8,10 +8,13 @@ import java.util.ArrayList;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import models.mPoint;
 import models.mSchedule;
 import models.mStudent;
+import models.mUser;
+import models.mSubject_student;
 
 public class dMinistry {
 	
@@ -125,6 +128,50 @@ public class dMinistry {
 			transaction = session.beginTransaction();
 			for (mPoint point : listPoint) {
 				session.save(point);
+			}
+			transaction.commit();
+			flag = true;
+		} catch (HibernateException ex) {
+			transaction.rollback();
+			System.err.println(ex);
+		} finally {
+			session.close();
+		}
+		return flag;
+	}
+	
+	public static ArrayList<String> getAllClassDistinct () {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		String hql = "SELECT DISTINCT(s.className) FROM mStudent s";
+		Query query = session.createQuery(hql);
+		ArrayList<String> listStudent = (ArrayList<String>)query.list();
+		return listStudent;
+	}
+	
+	public static ArrayList<mStudent> getAllStudent () {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		String hql = "FROM mStudent";
+		Query query = session.createQuery(hql);
+		ArrayList<mStudent> listStudent = (ArrayList<mStudent>)query.list();
+		return listStudent;
+	}
+	
+	public static ArrayList<mSchedule> getAllSchedule () {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		String hql = "FROM mSchedule";
+		Query query = session.createQuery(hql);
+		ArrayList<mSchedule> listSchedule = (ArrayList<mSchedule>)query.list();
+		return listSchedule;
+	}
+	
+	public static boolean writeSubject_student(ArrayList<mSubject_student> listSubject_student) {
+		boolean flag = false;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+			for (mSubject_student sub_stu : listSubject_student) {
+				session.save(sub_stu);
 			}
 			transaction.commit();
 			flag = true;

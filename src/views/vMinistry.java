@@ -3,9 +3,11 @@ package views;
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -13,19 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
-import javax.swing.JToolBar;
-import javax.swing.JDesktopPane;
-import javax.swing.Box;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import javax.swing.JEditorPane;
-import javax.swing.JFormattedTextField;
-import java.awt.GridBagLayout;
-import javax.swing.BoxLayout;
-import java.awt.BorderLayout;
-import javax.swing.JTabbedPane;
-import java.awt.CardLayout;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
@@ -33,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import controllers.cMinistry;
+import hibernate.result;
 
 public class vMinistry {
 
@@ -89,6 +79,15 @@ public class vMinistry {
 				}
 			}
 		});
+		
+		
+		JComboBox cbbLop = new JComboBox();
+		JComboBox cbbLopTheoMon = new JComboBox();
+		//load combobox
+		loadComboboxFollowClassName(cbbLop);
+		loadComboboxFollowSubject(cbbLopTheoMon);
+		
+		cMinistry.mappingSubjectAndStuden();
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Lop theo mon", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -286,13 +285,45 @@ public class vMinistry {
 		JButton btnDanhSachLop = new JButton("Danh sach lop");
 		btnDanhSachLop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cMinistry.importListStudent("dslop");
+				result rs = cMinistry.importCSV("dslop");
+				if (rs.isStatus()) {
+					JOptionPane.showMessageDialog(frame, rs.getMessage(), "Thong bao",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				//load combobox
+				loadComboboxFollowClassName(cbbLop);
+				loadComboboxFollowSubject(cbbLopTheoMon);
+				// mapping
+				cMinistry.mappingSubjectAndStuden();
 			}
 		});
 		
 		JButton btnImpThoiKhoaBieu = new JButton("Thoi khoa bieu");
+		btnImpThoiKhoaBieu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				result rs = cMinistry.importCSV("tkb");
+				if (rs.isStatus()) {
+					JOptionPane.showMessageDialog(frame, rs.getMessage(), "Thong bao",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				//load combobox
+				loadComboboxFollowClassName(cbbLop);
+				loadComboboxFollowSubject(cbbLopTheoMon);
+				// mapping
+				cMinistry.mappingSubjectAndStuden();
+			}
+		});
 		
 		JButton btnImpBangDiem = new JButton("Bang diem");
+		btnImpBangDiem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				result rs = cMinistry.importCSV("bangdiem");
+				if (rs.isStatus()) {
+					JOptionPane.showMessageDialog(frame, rs.getMessage(), "Thong bao",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
@@ -316,8 +347,6 @@ public class vMinistry {
 					.addContainerGap(18, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
-		
-		JComboBox cbbLop = new JComboBox();
 		
 		JButton btnDanhSach_1 = new JButton("Danh sach");
 		
@@ -346,8 +375,6 @@ public class vMinistry {
 		);
 		panel_1.setLayout(gl_panel_1);
 		
-		JComboBox cbbLopTheoMon = new JComboBox();
-		
 		JButton btnDanhSach = new JButton("Danh sach");
 		
 		JButton btnBangDiem = new JButton("Bang diem");
@@ -375,5 +402,19 @@ public class vMinistry {
 		);
 		panel.setLayout(gl_panel);
 		frame.getContentPane().setLayout(groupLayout);
+	}
+	
+	private void loadComboboxFollowSubject(JComboBox<String> comboBoxClassSubject) {
+		comboBoxClassSubject.removeAllItems();
+		for (String cLass : cMinistry.getListClassSubjects()) {
+			comboBoxClassSubject.addItem(cLass);
+		}
+	}
+	
+	private void loadComboboxFollowClassName(JComboBox<String> comboBoxClassName) {
+		comboBoxClassName.removeAllItems();
+		for (String cLass : cMinistry.getListClassName()) {
+			comboBoxClassName.addItem(cLass);
+		}
 	}
 }
