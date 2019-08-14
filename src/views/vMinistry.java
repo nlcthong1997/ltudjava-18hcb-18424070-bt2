@@ -87,8 +87,6 @@ public class vMinistry {
 		loadComboboxFollowClassName(cbbLop);
 		loadComboboxFollowSubject(cbbLopTheoMon);
 		
-		cMinistry.mappingSubjectAndStuden();
-		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Lop theo mon", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
