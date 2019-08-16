@@ -20,7 +20,7 @@ import hibernate.result;
 
 public class vLogin {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField taikhoanField;
 	private JPasswordField passwordField;
 
@@ -52,7 +52,7 @@ public class vLogin {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(450, 250, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblDangNhap = new JLabel("Dang nhap");

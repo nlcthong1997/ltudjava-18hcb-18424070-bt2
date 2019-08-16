@@ -142,26 +142,63 @@ public class dMinistry {
 	
 	public static ArrayList<String> getAllClassDistinct () {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		String hql = "SELECT DISTINCT(s.className) FROM mStudent s";
-		Query query = session.createQuery(hql);
-		ArrayList<String> listStudent = (ArrayList<String>)query.list();
+		ArrayList<String> listStudent = new ArrayList<String> ();
+		try {
+			String hql = "SELECT DISTINCT(s.className) FROM mStudent s";
+			Query query = session.createQuery(hql);
+			listStudent = (ArrayList<String>)query.list();
+		} catch (HibernateException ex) {
+			System.err.println(ex);
+		} finally {
+			session.close();
+		}
 		return listStudent;
 	}
 	
 	public static ArrayList<mStudent> getAllStudent () {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		String hql = "FROM mStudent";
-		Query query = session.createQuery(hql);
-		ArrayList<mStudent> listStudent = (ArrayList<mStudent>)query.list();
+		ArrayList<mStudent> listStudent = new ArrayList<mStudent> ();
+		try {
+			String hql = "FROM mStudent";
+			Query query = session.createQuery(hql);
+			listStudent = (ArrayList<mStudent>)query.list();
+		} catch (HibernateException ex) {
+			System.err.println(ex);
+		} finally {
+			session.close();
+		}
 		return listStudent;
 	}
 	
 	public static ArrayList<mSchedule> getAllSchedule () {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		String hql = "FROM mSchedule";
-		Query query = session.createQuery(hql);
-		ArrayList<mSchedule> listSchedule = (ArrayList<mSchedule>)query.list();
+		ArrayList<mSchedule> listSchedule = new ArrayList<mSchedule> ();
+		try {
+			String hql = "FROM mSchedule";
+			Query query = session.createQuery(hql);
+			listSchedule = (ArrayList<mSchedule>)query.list();
+		} catch (HibernateException ex) {
+			System.err.println(ex);
+		} finally {
+			session.close();
+		}
 		return listSchedule;
+	}
+	
+	public static void deleteAllSubject_student () {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.beginTransaction();
+		try {
+			String hql = "DELETE FROM mSubject_student s WHERE s.type IS NULL";
+			Query query = session.createQuery(hql);
+			query.executeUpdate();
+			transaction.commit();
+		} catch (HibernateException ex) {
+			transaction.rollback();
+			System.err.println(ex);
+		} finally {
+			session.close();
+		}
 	}
 	
 	public static boolean writeSubject_student(ArrayList<mSubject_student> listSubject_student) {

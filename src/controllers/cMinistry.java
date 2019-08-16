@@ -44,10 +44,12 @@ public class cMinistry {
 				if (type.equals("dslop")) {
 					ArrayList<mStudent> listStudent = dMinistry.readCsvStudent(path);
 					flag = dMinistry.writeCsvStudent(listStudent);
+					mappingSubjectAndStudent();
 				}
 				if (type.equals("tkb")) {
 					ArrayList<mSchedule> listSchedule = dMinistry.readCsvSchedule(path);
 					flag = dMinistry.writeCsvSchedule(listSchedule);
+					mappingSubjectAndStudent();
 				}
 				if (type.equals("bangdiem")) {
 					ArrayList<mPoint> listPoint = dMinistry.readCsvPoint(path);
@@ -79,20 +81,21 @@ public class cMinistry {
 		return rs;
 	}
 	
-	public static void mappingSubjectAndStuden () {
+	public static void mappingSubjectAndStudent () {
 		ArrayList<mStudent> listStudent = dMinistry.getAllStudent();
 		ArrayList<mSchedule> listSchedule = dMinistry.getAllSchedule();
 		if (listStudent.size() > 0 && listSchedule.size() > 0) {
+			dMinistry.deleteAllSubject_student(); // delete all
 			ArrayList<mSubject_student> listSubject_student = new ArrayList<mSubject_student>();
 			for (mStudent student : listStudent) {
 				for (mSchedule schedule : listSchedule) {
 					if (student.getClassName().equals(schedule.getClassName())) {
-						mSubject_student sub_stu = new mSubject_student(0, student.getIdStudent(), schedule.getSubjectCode(), schedule.getSubjectName(), schedule.getClassroom(), schedule.getClassName());
+						mSubject_student sub_stu = new mSubject_student(0, student.getIdStudent(), schedule.getSubjectCode(), schedule.getSubjectName(), schedule.getClassroom(), schedule.getClassName(), null);
 						listSubject_student.add(sub_stu);
 					}
 				}
 			}
-			dMinistry.writeSubject_student(listSubject_student);
+			dMinistry.writeSubject_student(listSubject_student); // add all
 		}
 	}
 	

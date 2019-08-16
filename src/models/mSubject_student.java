@@ -30,11 +30,14 @@ public class mSubject_student {
 	
 	@Column(name = "className")
 	private String className;
+	
+	@Column(name = "type")
+	private String type;
 
 	public mSubject_student() {
 	}
 
-	public mSubject_student(int id, String idStudent, String subjectCode, String nameSubject, String classroom, String className) {
+	public mSubject_student(int id, String idStudent, String subjectCode, String nameSubject, String classroom, String className, String type) {
 		super();
 		this.id = id;
 		this.idStudent = idStudent;
@@ -42,6 +45,7 @@ public class mSubject_student {
 		this.nameSubject = nameSubject;
 		this.classroom = classroom;
 		this.className = className;
+		this.type = type;
 	}
 
 	public int getId() {
@@ -90,6 +94,14 @@ public class mSubject_student {
 
 	public void setClassName(String className) {
 		this.className = className;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

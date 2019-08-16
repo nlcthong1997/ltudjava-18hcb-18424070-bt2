@@ -102,22 +102,29 @@ public class vMinistry {
 		JButton btnDoiMatKhau = new JButton("Doi mat khau");
 		
 		JButton btnDangXuat = new JButton("Dang xuat");
+		btnDangXuat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				vLogin window = new vLogin();
+				window.frame.setVisible(true);
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(26)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addComponent(panel_3, 0, 0, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addGap(366)
-							.addComponent(btnDoiMatKhau, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED, 366, Short.MAX_VALUE)
+							.addComponent(btnDoiMatKhau, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnDangXuat, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(btnDangXuat, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(panel_1, 0, 0, Short.MAX_VALUE)
-								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
+								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE))
 							.addGap(36)
 							.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)))
 					.addGap(42))
@@ -138,7 +145,7 @@ public class vMinistry {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnDangXuat)
 						.addComponent(btnDoiMatKhau))
-					.addContainerGap(22, Short.MAX_VALUE))
+					.addContainerGap(21, Short.MAX_VALUE))
 		);
 		
 		JPanel panel_4 = new JPanel();
@@ -291,8 +298,6 @@ public class vMinistry {
 				//load combobox
 				loadComboboxFollowClassName(cbbLop);
 				loadComboboxFollowSubject(cbbLopTheoMon);
-				// mapping
-				cMinistry.mappingSubjectAndStuden();
 			}
 		});
 		
@@ -307,8 +312,6 @@ public class vMinistry {
 				//load combobox
 				loadComboboxFollowClassName(cbbLop);
 				loadComboboxFollowSubject(cbbLopTheoMon);
-				// mapping
-				cMinistry.mappingSubjectAndStuden();
 			}
 		});
 		
@@ -374,6 +377,19 @@ public class vMinistry {
 		panel_1.setLayout(gl_panel_1);
 		
 		JButton btnDanhSach = new JButton("Danh sach");
+		btnDanhSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (cbbLopTheoMon.getSelectedItem() != null) {
+					String cbbClassSubjectSelected = (String) cbbLopTheoMon.getSelectedItem();
+					frame.dispose();
+					vStudentClassSubject window = new vStudentClassSubject(cbbClassSubjectSelected, idUser, userName);
+					window.frame.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(frame, "Khong co du lieu.", "Thong bao",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		
 		JButton btnBangDiem = new JButton("Bang diem");
 		GroupLayout gl_panel = new GroupLayout(panel);
