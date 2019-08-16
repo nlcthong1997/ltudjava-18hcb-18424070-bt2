@@ -19,12 +19,15 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
@@ -66,6 +69,19 @@ public class vStudentClassSubject {
 		frame = new JFrame("Danh sach lop - " + classSubject);
 		frame.setBounds(450, 250, 593, 462);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// handle close window
+		frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				int confirm = JOptionPane.showConfirmDialog(frame, "Ban muon thoat chuong trinh", "Thong bao!",
+						JOptionPane.YES_NO_OPTION);
+				if (confirm == 0) {
+					frame.dispose();
+				}
+			}
+		});
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -153,6 +169,36 @@ public class vStudentClassSubject {
 		});
 		
 		JButton btnXoa = new JButton("Xoa");
+		btnXoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String idStudent = "";
+				int row = table.getSelectedRow();
+				if (row >= 0) {
+					idStudent = table.getModel().getValueAt(row, 1).toString();
+				}
+				idStudent = txtMssv.getText();
+				
+				if (idStudent.equals("")) {
+					JOptionPane.showMessageDialog(frame, "Ban chua nhap hoac chon thong tin tu bang.", "Thong bao",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					result rs = cStudentClassSubject.deleteStudentOfClassSubject(idStudent, classSubject);
+					if (rs.isStatus()) {
+						JOptionPane.showMessageDialog(frame, rs.getMessage(), "Thong bao",
+								JOptionPane.INFORMATION_MESSAGE);
+						txtMssv.setText(null);
+						try {
+							renderDataTable(table, classSubject);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} else {
+						JOptionPane.showMessageDialog(frame, rs.getMessage(), "Canh bao",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+			}
+		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)

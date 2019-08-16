@@ -36,12 +36,15 @@ public class mPoint {
 
 	@Column(name = "totalPoint")
 	private float totalPoint;
+	
+	@Column(name = "nameStudent")
+	private String nameStudent;
 
 	public mPoint() {
 	}
 
 	public mPoint(int id, String className, String subjectCode, String idStudent, float midPoint, float endPoint,
-			float otherPoint, float totalPoint) {
+			float otherPoint, float totalPoint, String nameStudent) {
 		super();
 		this.id = id;
 		this.className = className;
@@ -51,6 +54,15 @@ public class mPoint {
 		this.endPoint = endPoint;
 		this.otherPoint = otherPoint;
 		this.totalPoint = totalPoint;
+		this.nameStudent = nameStudent;
+	}
+
+	public String getNameStudent() {
+		return nameStudent;
+	}
+
+	public void setNameStudent(String nameStudent) {
+		this.nameStudent = nameStudent;
 	}
 
 	public int getId() {

@@ -116,4 +116,26 @@ public class dStudentClassSubject {
 		}
 		return flag;
 	}
+	
+	public static boolean deleteStudent_SubjectStudent (String idStudent, String subjectCode) {
+		boolean flag = false;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.beginTransaction();
+		try {
+			String hql = "DELETE FROM mSubject_student s WHERE idStudent = :idStudent AND subjectCode = :subjectCode";
+			Query query = session.createQuery(hql);
+			query.setParameter("idStudent", idStudent);
+			query.setParameter("subjectCode", subjectCode);
+			if (query.executeUpdate() != 0) {
+				flag = true;
+			}
+			transaction.commit();
+		} catch (HibernateException ex) {
+			transaction.rollback();
+			System.err.println(ex);
+		} finally {
+			session.close();
+		}
+		return flag;
+	}
 }

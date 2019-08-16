@@ -109,7 +109,7 @@ public class dMinistry {
 			while ((line = br.readLine()) != null) {
 				arrayLine = line.split("\\,");
 				mPoint point = new mPoint(0, arrayLine[1], arrayLine[2], arrayLine[3], Float.parseFloat(arrayLine[4]),
-						Float.parseFloat(arrayLine[5]), Float.parseFloat(arrayLine[6]), Float.parseFloat(arrayLine[7]));
+						Float.parseFloat(arrayLine[5]), Float.parseFloat(arrayLine[6]), Float.parseFloat(arrayLine[7]), arrayLine[8]);
 				listPoint.add(point);
 			}
 		} catch (IOException e) {

@@ -47,4 +47,15 @@ public class cStudentClassSubject {
 		}
 		return rs;
 	}
+	
+	public static result deleteStudentOfClassSubject(String idStudent, String classSubject) {
+		result rs = null;
+		String [] className_subjectCode = classSubject.split("\\-");
+		if (dStudentClassSubject.deleteStudent_SubjectStudent(idStudent, className_subjectCode[1])) {
+			rs = new result(true, "Xoa thanh cong", "", 0, "");
+		} else {
+			rs = new result(false, "Xoa that bai", "", 0, "");
+		}
+		return rs;
+	}
 }

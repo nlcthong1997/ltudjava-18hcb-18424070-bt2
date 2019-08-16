@@ -350,8 +350,10 @@ public class vMinistry {
 		panel_2.setLayout(gl_panel_2);
 		
 		JButton btnDanhSach_1 = new JButton("Danh sach");
+		btnDanhSach_1.setFont(new Font("Dialog", Font.BOLD, 11));
 		
 		JButton btnLichBieu = new JButton("Lich bieu");
+		btnLichBieu.setFont(new Font("Dialog", Font.BOLD, 11));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -361,8 +363,8 @@ public class vMinistry {
 					.addGap(30)
 					.addComponent(btnDanhSach_1)
 					.addGap(18)
-					.addComponent(btnLichBieu, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(btnLichBieu, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(15, Short.MAX_VALUE))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -377,6 +379,7 @@ public class vMinistry {
 		panel_1.setLayout(gl_panel_1);
 		
 		JButton btnDanhSach = new JButton("Danh sach");
+		btnDanhSach.setFont(new Font("Dialog", Font.BOLD, 11));
 		btnDanhSach.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (cbbLopTheoMon.getSelectedItem() != null) {
@@ -392,6 +395,20 @@ public class vMinistry {
 		});
 		
 		JButton btnBangDiem = new JButton("Bang diem");
+		btnBangDiem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (cbbLopTheoMon.getSelectedItem() != null) {
+					String cbbClassSubjectSelected = (String) cbbLopTheoMon.getSelectedItem();
+					frame.dispose();
+					vPoint window = new vPoint(cbbClassSubjectSelected, idUser, userName);
+					window.frame.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(frame, "Khong co du lieu.", "Thong bao",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+		btnBangDiem.setFont(new Font("Dialog", Font.BOLD, 11));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
