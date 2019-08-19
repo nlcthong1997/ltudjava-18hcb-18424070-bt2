@@ -40,7 +40,6 @@ public class cStudentClassSubject {
 				} else {
 					rs = new result(true, "Them that bai", "", 0, "");
 				}
-				
 			}
 		} else {
 			rs = new result(false, "Ma sinh vien khong ton tai !", "", 0, "");
