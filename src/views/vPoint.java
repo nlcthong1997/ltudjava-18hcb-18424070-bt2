@@ -19,12 +19,15 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import controllers.cStudentClassSubject;
-import models.mStudent;
+import controllers.cPoint;
+import hibernate.result;
+import models.mPoint;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class vPoint {
 
@@ -79,6 +82,7 @@ public class vPoint {
 				}
 			}
 		});
+		
 		JScrollPane scrollPane = new JScrollPane();
 		
 		JPanel panel = new JPanel();
@@ -149,37 +153,78 @@ public class vPoint {
 		txtDiemtong = new JTextField();
 		txtDiemtong.setColumns(10);
 		
+		table = new JTable();
+		try {
+			renderDataTable(table, classSubject);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		scrollPane.setViewportView(table);
+		
 		JButton btnSua = new JButton("Sua");
+		btnSua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int row = table.getSelectedRow();
+				if (row >= 0) {
+					String idStudent = table.getModel().getValueAt(row, 1).toString();
+		        	String diemGK = txtDiemGK.getText();
+		        	String diemCK = txtDiemCK.getText();
+		        	String diemKhac = txtDiemKhac.getText();
+		        	String diemTong = txtDiemtong.getText();
+		        	String [] infoEdit = { idStudent, diemGK, diemCK, diemKhac, diemTong, classSubject };
+		        	result rs = cPoint.updatePointStudent(infoEdit);
+		        	if (rs.isStatus()) {
+		        		JOptionPane.showMessageDialog(frame, rs.getMessage(), "Thong bao",
+								JOptionPane.INFORMATION_MESSAGE);
+		        		try {
+							renderDataTable(table, classSubject);
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+		        	} else {
+		        		JOptionPane.showMessageDialog(frame, rs.getMessage(), "Canh bao",
+								JOptionPane.INFORMATION_MESSAGE);
+		        	}
+				} else {
+					JOptionPane.showMessageDialog(frame, "Ban chua chon sinh vien can sua.", "Canh bao",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(lblMssv)
-							.addGap(88))
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(lblDiemKhac)
-							.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-							.addComponent(txtDiemKhac, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDiemGK)
-								.addComponent(lblDiemCk))
-							.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-								.addComponent(txtDiemCK, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtDiemGK, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap())
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-								.addComponent(btnSua)
-								.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
-									.addComponent(lblDiemTong)
-									.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-									.addComponent(txtDiemtong, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)))
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addComponent(lblMssv)
+								.addGap(88))
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addGap(0, 0, Short.MAX_VALUE)
+								.addComponent(lblDiemKhac)
+								.addGap(83)
+								.addComponent(txtDiemKhac, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap())
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addGap(0, 0, Short.MAX_VALUE)
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblDiemGK)
+									.addComponent(lblDiemCk))
+								.addGap(92)
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+									.addComponent(txtDiemCK, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(txtDiemGK, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addContainerGap())
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addGap(0, 0, Short.MAX_VALUE)
+								.addComponent(lblDiemTong)
+								.addGap(83)
+								.addComponent(txtDiemtong, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGap(10)))
+						.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+							.addComponent(btnSua)
 							.addContainerGap())))
 		);
 		gl_panel_1.setVerticalGroup(
@@ -249,8 +294,25 @@ public class vPoint {
 		panel.setLayout(gl_panel);
 		frame.getContentPane().setLayout(groupLayout);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
+		table.addMouseListener(new java.awt.event.MouseAdapter() {
+		    @Override
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		        int row = table.rowAtPoint(evt.getPoint());
+		        int col = table.columnAtPoint(evt.getPoint());
+		        if (row >= 0 && col >= 0) {
+		        	String idStudent = table.getModel().getValueAt(row, 1).toString();
+		        	String diemGK = table.getModel().getValueAt(row, 3).toString();
+		        	String diemCK = table.getModel().getValueAt(row, 4).toString();
+		        	String diemKhac = table.getModel().getValueAt(row, 5).toString();
+		        	String diemTong = table.getModel().getValueAt(row, 6).toString();
+		        	lblMssv.setText(idStudent);
+		        	txtDiemGK.setText(diemGK);
+		        	txtDiemCK.setText(diemCK);
+		        	txtDiemKhac.setText(diemKhac);
+		        	txtDiemtong.setText(diemTong);
+		        }
+		    }
+		});
 		
 	}
 	
@@ -262,24 +324,32 @@ public class vPoint {
 		model.addColumn("STT");
 		model.addColumn("MSSV");
 		model.addColumn("Ho ten");
-		model.addColumn("Gioi tinh");
-		model.addColumn("CMND");
+		model.addColumn("Diem GK");
+		model.addColumn("Diem CK");
+		model.addColumn("Diem Khac");
+		model.addColumn("Diem Tong");
 		
-		cStudentClassSubject.getListStudentClassSubject(classSubject);
-		ArrayList<mStudent> listStudentClassSubject = cStudentClassSubject.getListStudentClassSubject(classSubject);
-		if (listStudentClassSubject.size() > 0) {
+		ArrayList<mPoint> listStudentClassSubjectPoint = cPoint.getListStudentClassSubjectPoint(classSubject);
+		if (listStudentClassSubjectPoint.size() > 0) {
 			int index = 1;
-			for (mStudent student : listStudentClassSubject) {
-				Vector<String> listStudents = new Vector<String>();
-				listStudents.add(String.valueOf(index));
-				listStudents.add(student.getIdStudent());
-				listStudents.add(student.getNameStudent());
-				listStudents.add(student.getSex());
-				listStudents.add(student.getIdentityCard());
-				model.addRow(listStudents);
+			for (mPoint point : listStudentClassSubjectPoint) {
+				Vector<String> listPoint = new Vector<String>();
+				listPoint.add(String.valueOf(index));
+				listPoint.add(point.getIdStudent());
+				listPoint.add(point.getNameStudent());
+				listPoint.add(String.valueOf(point.getMidPoint()));
+				listPoint.add(String.valueOf(point.getEndPoint()));
+				listPoint.add(String.valueOf(point.getOtherPoint()));
+				listPoint.add(String.valueOf(point.getTotalPoint()));
+				model.addRow(listPoint);
 				index++;
 			}
 		}
+	}
+	
+	private void loadPercent () {
+		JLabel lblPhantramdau, lblSoluongdau, lblPhantramrot, lblSoluongrot;
+		String [] percent = cPoint.loadPercent();
 	}
 
 }

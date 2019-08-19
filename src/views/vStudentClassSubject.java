@@ -248,7 +248,6 @@ public class vStudentClassSubject {
 		model.addColumn("Gioi tinh");
 		model.addColumn("CMND");
 		
-		cStudentClassSubject.getListStudentClassSubject(classSubject);
 		ArrayList<mStudent> listStudentClassSubject = cStudentClassSubject.getListStudentClassSubject(classSubject);
 		if (listStudentClassSubject.size() > 0) {
 			int index = 1;
