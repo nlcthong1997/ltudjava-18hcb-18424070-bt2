@@ -29,7 +29,27 @@ public class cPoint {
 		return rs;
 	}
 	
-	public static String[] loadPercent () {
-		dPoint.getTotalPoint
+	/**
+	 * return [totalStudentPointPass, totalStudentPointMiss, percentStudentPass, persentStudentMiss] 
+	 */
+	public static ArrayList<Long> loadQuantityAndPercentPoint (String classSubject) {
+		String [] className_subjectCode = classSubject.split("\\-");
+		ArrayList<Long> listResult = new ArrayList<Long>();
+		Long totalStudentPoints = (long) 0, totalStudentPointPass, totalStudentPointMiss, percentStudentPass = (long) 0, persentStudentMiss = (long) 0;
+		
+		totalStudentPoints = dPoint.getTotalNumberStudentPoint(className_subjectCode[0], className_subjectCode[1], (float) 0);
+		totalStudentPointPass = dPoint.getTotalNumberStudentPoint(className_subjectCode[0], className_subjectCode[1], (float) 5);
+		totalStudentPointMiss = totalStudentPoints - totalStudentPointPass;
+		if (totalStudentPoints != 0) {
+			percentStudentPass =  (totalStudentPointPass * 100) / totalStudentPoints;
+			persentStudentMiss = 100 - percentStudentPass;
+		}
+		
+		listResult.add(totalStudentPointPass);
+		listResult.add(totalStudentPointMiss);
+		listResult.add(percentStudentPass);
+		listResult.add(persentStudentMiss);
+		
+		return listResult;
 	}
 }

@@ -67,7 +67,7 @@ public class vPoint {
 	 */
 	private void initialize(String classSubject, int idUser, String userName) {
 		frame = new JFrame("Bang diem lop - " + classSubject);
-		frame.setBounds(450, 250, 612, 492);
+		frame.setBounds(450, 250, 750, 492);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// handle close window
@@ -92,8 +92,22 @@ public class vPoint {
 		panel_1.setBorder(new TitledBorder(null, "Chinh sua diem", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JButton btnDangXuat = new JButton("Dang xuat");
+		btnDangXuat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				vLogin window = new vLogin();
+				window.frame.setVisible(true);
+			}
+		});
 		
 		JButton btnQuayLai = new JButton("Quay lai");
+		btnQuayLai.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				vMinistry window = new vMinistry(idUser, userName);
+				window.frame.setVisible(true);
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -153,9 +167,18 @@ public class vPoint {
 		txtDiemtong = new JTextField();
 		txtDiemtong.setColumns(10);
 		
+		JLabel lblPhantramdau = new JLabel("New label");
+		
+		JLabel lblSoluongdau = new JLabel("New label");
+		
+		JLabel lblPhantramrot = new JLabel("New label");
+		
+		JLabel lblSoluongrot = new JLabel("New label");
+		
 		table = new JTable();
 		try {
 			renderDataTable(table, classSubject);
+			loadPercent(classSubject, lblPhantramdau, lblSoluongdau, lblPhantramrot, lblSoluongrot);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -178,6 +201,12 @@ public class vPoint {
 								JOptionPane.INFORMATION_MESSAGE);
 		        		try {
 							renderDataTable(table, classSubject);
+							loadPercent(classSubject, lblPhantramdau, lblSoluongdau, lblPhantramrot, lblSoluongrot);
+							lblMssv.setText("MSSV");
+				        	txtDiemGK.setText("");
+				        	txtDiemCK.setText("");
+				        	txtDiemKhac.setText("");
+				        	txtDiemtong.setText("");
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
@@ -257,13 +286,6 @@ public class vPoint {
 		);
 		panel_1.setLayout(gl_panel_1);
 		
-		JLabel lblPhantramdau = new JLabel("New label");
-		
-		JLabel lblSoluongdau = new JLabel("New label");
-		
-		JLabel lblPhantramrot = new JLabel("New label");
-		
-		JLabel lblSoluongrot = new JLabel("New label");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -328,6 +350,7 @@ public class vPoint {
 		model.addColumn("Diem CK");
 		model.addColumn("Diem Khac");
 		model.addColumn("Diem Tong");
+		model.addColumn("Trang thai");
 		
 		ArrayList<mPoint> listStudentClassSubjectPoint = cPoint.getListStudentClassSubjectPoint(classSubject);
 		if (listStudentClassSubjectPoint.size() > 0) {
@@ -341,15 +364,24 @@ public class vPoint {
 				listPoint.add(String.valueOf(point.getEndPoint()));
 				listPoint.add(String.valueOf(point.getOtherPoint()));
 				listPoint.add(String.valueOf(point.getTotalPoint()));
+				if (point.getTotalPoint() >= 5) {
+					listPoint.add("");
+				} else {
+					listPoint.add("         X");
+				}
 				model.addRow(listPoint);
 				index++;
 			}
 		}
 	}
 	
-	private void loadPercent () {
-		JLabel lblPhantramdau, lblSoluongdau, lblPhantramrot, lblSoluongrot;
-		String [] percent = cPoint.loadPercent();
+	private void loadPercent (String classSubject, JLabel lblPhantramdau, JLabel lblSoluongdau, JLabel lblPhantramrot, JLabel lblSoluongrot) {
+		ArrayList<Long> listResult = cPoint.loadQuantityAndPercentPoint(classSubject);
+
+		lblSoluongdau.setText("So luong dau: " + Long.toString(listResult.get(0)) + " sv");
+		lblSoluongrot.setText("So luong rot: " + Long.toString(listResult.get(1)) + " sv");
+		lblPhantramdau.setText("Ti le dau: " + Long.toString(listResult.get(2)) + "%");
+		lblPhantramrot.setText("Ti le rot: " + Long.toString(listResult.get(3)) + "%");
 	}
 
 }

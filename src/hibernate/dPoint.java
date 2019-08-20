@@ -10,19 +10,19 @@ import models.mPoint;
 public class dPoint {
 	public static ArrayList<mPoint> getListPoint (String className, String subjectCode) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		ArrayList<mPoint> listPoint = new ArrayList<mPoint> ();
+		ArrayList<mPoint> listStudentPoint = new ArrayList<mPoint> ();
 		try {
 			String hql = "FROM mPoint WHERE className = :className AND subjectCode = :subjectCode";
 			Query query = session.createQuery(hql);
 			query.setParameter("className", className);
 			query.setParameter("subjectCode", subjectCode);
-			listPoint = (ArrayList<mPoint>)query.list();
+			listStudentPoint = (ArrayList<mPoint>)query.list();
 		} catch (HibernateException ex) {
 			System.err.println(ex);
 		} finally {
 			session.close();
 		}
-		return listPoint;
+		return listStudentPoint;
 	}
 	
 	public static boolean updatePoint(String idStudent, String className, String subjectCode, 
@@ -52,5 +52,23 @@ public class dPoint {
 			session.close();
 		}
 		return flag;
+	}
+	
+	public static Long getTotalNumberStudentPoint (String className, String subjectCode, Float conditionPoint) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Long quantityStudentPoint = null;
+		try {
+			String hql = "SELECT count(*) FROM mPoint p WHERE p.className = :className AND p.subjectCode = :subjectCode  AND p.totalPoint >= :conditionPoint";
+			Query query = session.createQuery(hql);
+			query.setParameter("className", className);
+			query.setParameter("subjectCode", subjectCode);
+			query.setParameter("conditionPoint", conditionPoint);
+			quantityStudentPoint = (Long)query.uniqueResult();
+		} catch (HibernateException ex) {
+			System.err.println(ex);
+		} finally {
+			session.close();
+		}
+		return quantityStudentPoint;
 	}
 }
