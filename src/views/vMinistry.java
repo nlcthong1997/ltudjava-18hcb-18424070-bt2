@@ -350,9 +350,35 @@ public class vMinistry {
 		panel_2.setLayout(gl_panel_2);
 		
 		JButton btnDanhSach_1 = new JButton("Danh sach");
+		btnDanhSach_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (cbbLopTheoMon.getSelectedItem() != null) {
+					String cbbClassNameSelected = (String) cbbLop.getSelectedItem();
+					frame.dispose();
+					vStudentClassName window = new vStudentClassName(cbbClassNameSelected, idUser,  userName);
+					window.frame.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(frame, "Khong co du lieu.", "Thong bao",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		btnDanhSach_1.setFont(new Font("Dialog", Font.BOLD, 11));
 		
 		JButton btnLichBieu = new JButton("Lich bieu");
+		btnLichBieu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (cbbLopTheoMon.getSelectedItem() != null) {
+					String cbbClassNameSelected = (String) cbbLop.getSelectedItem();
+					frame.dispose();
+					vSchedule window = new vSchedule(cbbClassNameSelected, idUser,  userName);
+					window.frame.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(frame, "Khong co du lieu.", "Thong bao",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		btnLichBieu.setFont(new Font("Dialog", Font.BOLD, 11));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(

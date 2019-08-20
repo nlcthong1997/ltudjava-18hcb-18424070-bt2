@@ -195,25 +195,30 @@ public class vPoint {
 		        	String diemKhac = txtDiemKhac.getText();
 		        	String diemTong = txtDiemtong.getText();
 		        	String [] infoEdit = { idStudent, diemGK, diemCK, diemKhac, diemTong, classSubject };
-		        	result rs = cPoint.updatePointStudent(infoEdit);
-		        	if (rs.isStatus()) {
-		        		JOptionPane.showMessageDialog(frame, rs.getMessage(), "Thong bao",
+		        	if (idStudent.equals("") || diemGK.equals("") || diemCK.equals("") || diemKhac.equals("") || diemTong.equals("")) {
+						JOptionPane.showMessageDialog(frame, "Ban chua nhap du thong tin.", "Thong bao",
 								JOptionPane.INFORMATION_MESSAGE);
-		        		try {
-							renderDataTable(table, classSubject);
-							loadPercent(classSubject, lblPhantramdau, lblSoluongdau, lblPhantramrot, lblSoluongrot);
-							lblMssv.setText("MSSV");
-				        	txtDiemGK.setText("");
-				        	txtDiemCK.setText("");
-				        	txtDiemKhac.setText("");
-				        	txtDiemtong.setText("");
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-		        	} else {
-		        		JOptionPane.showMessageDialog(frame, rs.getMessage(), "Canh bao",
-								JOptionPane.INFORMATION_MESSAGE);
-		        	}
+					} else {
+						result rs = cPoint.updatePointStudent(infoEdit);
+			        	if (rs.isStatus()) {
+			        		JOptionPane.showMessageDialog(frame, rs.getMessage(), "Thong bao",
+									JOptionPane.INFORMATION_MESSAGE);
+			        		try {
+								renderDataTable(table, classSubject);
+								loadPercent(classSubject, lblPhantramdau, lblSoluongdau, lblPhantramrot, lblSoluongrot);
+								lblMssv.setText("MSSV");
+					        	txtDiemGK.setText("");
+					        	txtDiemCK.setText("");
+					        	txtDiemKhac.setText("");
+					        	txtDiemtong.setText("");
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
+			        	} else {
+			        		JOptionPane.showMessageDialog(frame, rs.getMessage(), "Canh bao",
+									JOptionPane.INFORMATION_MESSAGE);
+			        	}
+					}
 				} else {
 					JOptionPane.showMessageDialog(frame, "Ban chua chon sinh vien can sua.", "Canh bao",
 							JOptionPane.INFORMATION_MESSAGE);
