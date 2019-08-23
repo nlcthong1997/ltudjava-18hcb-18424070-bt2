@@ -109,8 +109,22 @@ public class vStudent {
 		});
 		
 		JButton btnDangXuat = new JButton("Dang xuat");
+		btnDangXuat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				vLogin window = new vLogin();
+				window.frame.setVisible(true);
+			}
+		});
 		
 		JButton btnDoiMatKhau = new JButton("Doi mat khau");
+		btnDoiMatKhau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				vChangePassword window = new vChangePassword(idUser, userName);
+				window.frame.setVisible(true);
+			}
+		});
 		
 		chckbxTatCaMon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -209,8 +223,6 @@ public class vStudent {
 				for (studentSubjectPoint stuPoint : listStudentPoint) {
 					Vector<String> list = new Vector<String>();
 					if (stuPoint.getSubjectName().equals(studentSubjectSelected)) {
-						System.out.println(studentSubjectSelected);
-						System.out.println(stuPoint.getSubjectName());
 						list.add(String.valueOf(index));
 						list.add(stuPoint.getSubjectCode());
 						list.add(stuPoint.getSubjectName());

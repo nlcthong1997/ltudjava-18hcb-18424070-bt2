@@ -15,4 +15,25 @@ public class cUser {
 			return new result(false, "Tai khoan khong dung", "", 0, "");
 		}
 	}
+	
+	public static String getTypeUser (int idUser) {
+		ArrayList<mUser> listUser = dUser.getTypeUser(idUser);
+		mUser user = listUser.get(0);
+		return user.getType();
+	}
+	
+	public static result changePassword(int idUser, String passwordNew, String passwordCurrent) {
+		result rs = null;
+		Long count = dUser.confirmPasswordCurrent(idUser, passwordCurrent);
+		if (count != 0) {
+			if (dUser.changePassword(idUser, passwordNew)) {
+				rs = new result (true, "Doi mat khau thanh cong", "", 0, "");
+			} else {
+				rs = new result (false, "Doi mat khau that bai", "", 0, "");
+			}
+		} else {
+			rs = new result (false, "Mat khau hien tai khong dung.", "", 0, "");
+		}
+		return rs;
+	}
 }

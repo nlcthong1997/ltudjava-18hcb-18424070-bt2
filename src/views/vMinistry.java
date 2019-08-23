@@ -100,6 +100,13 @@ public class vMinistry {
 		panel_3.setBorder(new TitledBorder(null, "Phuc khao", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JButton btnDoiMatKhau = new JButton("Doi mat khau");
+		btnDoiMatKhau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				vChangePassword window = new vChangePassword(idUser, userName);
+				window.frame.setVisible(true);
+			}
+		});
 		
 		JButton btnDangXuat = new JButton("Dang xuat");
 		btnDangXuat.addActionListener(new ActionListener() {
@@ -200,7 +207,13 @@ public class vMinistry {
 		);
 		panel_5.setLayout(gl_panel_5);
 		
+		// Tao phuc khao
 		JButton btnTaoPhucKhao = new JButton("Tao");
+		btnTaoPhucKhao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		
 		JButton btnDanhSachPhuc = new JButton("Danh sach phuc khao");
 		
