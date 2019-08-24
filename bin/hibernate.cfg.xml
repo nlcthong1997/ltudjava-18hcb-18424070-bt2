@@ -19,6 +19,8 @@
 		<mapping class="models.mSchedule" />
 		<mapping class="models.mPoint" />
 		<mapping class="models.mSubject_student" />
+		<mapping class="models.mReference" />
+		<mapping class="models.mStudent_reference" />
 	
 	</session-factory>
 </hibernate-configuration>

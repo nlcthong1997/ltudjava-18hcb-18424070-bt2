@@ -27,11 +27,7 @@ import hibernate.result;
 public class vMinistry {
 
 	public JFrame frame;
-	private JTextField txtTuNgay;
-	private JTextField txtTuThang;
 	private JTextField txtTuNam;
-	private JTextField txtDenNgay;
-	private JTextField txtDenThang;
 	private JTextField txtDenNam;
 
 	/**
@@ -161,32 +157,41 @@ public class vMinistry {
 		
 		JLabel lblDen = new JLabel("Den");
 		
-		txtDenNgay = new JTextField();
-		txtDenNgay.setColumns(10);
-		
 		JLabel label_3 = new JLabel("/");
 		label_3.setFont(new Font("Dialog", Font.BOLD, 17));
-		
-		txtDenThang = new JTextField();
-		txtDenThang.setColumns(10);
 		
 		JLabel label_4 = new JLabel("/");
 		label_4.setFont(new Font("Dialog", Font.BOLD, 17));
 		
 		txtDenNam = new JTextField();
 		txtDenNam.setColumns(10);
+		
+		JLabel lblTu = new JLabel("Tu");
+		
+		JLabel label = new JLabel("/");
+		label.setFont(new Font("Dialog", Font.BOLD, 17));
+		
+		JLabel label_1 = new JLabel("/");
+		label_1.setFont(new Font("Dialog", Font.BOLD, 17));
+		
+		txtTuNam = new JTextField();
+		txtTuNam.setColumns(10);
+		
+		JComboBox comboBox_2 = new JComboBox();
+		
+		JComboBox comboBox_3 = new JComboBox();
 		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
 		gl_panel_5.setHorizontalGroup(
 			gl_panel_5.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_5.createSequentialGroup()
 					.addComponent(lblDen)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtDenNgay, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
+					.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+					.addGap(1)
 					.addComponent(label_3)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtDenThang, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+					.addGap(3)
 					.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 6, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(txtDenNam, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
@@ -198,11 +203,11 @@ public class vMinistry {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(gl_panel_5.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblDen)
-						.addComponent(txtDenNgay, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 						.addComponent(label_3)
-						.addComponent(txtDenThang, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 						.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtDenNam, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtDenNam, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		panel_5.setLayout(gl_panel_5);
@@ -222,63 +227,56 @@ public class vMinistry {
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(label_2)
-						.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
+						.addGroup(Alignment.LEADING, gl_panel_3.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(label_2))
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGap(34)
+							.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(54))
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addContainerGap()
 							.addComponent(btnDanhSachPhuc)
-							.addGroup(gl_panel_3.createSequentialGroup()
-								.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
-								.addGap(18)
-								.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
-								.addGap(18)
-								.addComponent(btnTaoPhucKhao, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))))
-					.addGap(70))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnTaoPhucKhao, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+							.addGap(64)))
+					.addGap(114))
 		);
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-							.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-							.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
-						.addComponent(btnTaoPhucKhao))
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(label_2)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnDanhSachPhuc)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnTaoPhucKhao)
+						.addComponent(btnDanhSachPhuc))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
-		JLabel lblTu = new JLabel("Tu");
+		JComboBox<String> comboBox = new JComboBox();
 		
-		txtTuNgay = new JTextField();
-		txtTuNgay.setColumns(10);
+		JComboBox comboBox_1 = new JComboBox();
 		
-		JLabel label = new JLabel("/");
-		label.setFont(new Font("Dialog", Font.BOLD, 17));
-		
-		txtTuThang = new JTextField();
-		txtTuThang.setColumns(10);
-		
-		JLabel label_1 = new JLabel("/");
-		label_1.setFont(new Font("Dialog", Font.BOLD, 17));
-		
-		txtTuNam = new JTextField();
-		txtTuNam.setColumns(10);
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_4.createSequentialGroup()
 					.addComponent(lblTu)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtTuNgay, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
+					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(label)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtTuThang, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+					.addGap(3)
 					.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 6, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(txtTuNam, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
@@ -290,11 +288,11 @@ public class vMinistry {
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTu)
-						.addComponent(txtTuNgay, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 						.addComponent(label)
-						.addComponent(txtTuThang, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 						.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtTuNam, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtTuNam, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		panel_4.setLayout(gl_panel_4);
