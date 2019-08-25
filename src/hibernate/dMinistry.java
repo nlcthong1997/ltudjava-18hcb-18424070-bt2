@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import models.mPoint;
+import models.mReference;
 import models.mSchedule;
 import models.mStudent;
 import models.mUser;
@@ -209,6 +210,26 @@ public class dMinistry {
 			transaction = session.beginTransaction();
 			for (mSubject_student sub_stu : listSubject_student) {
 				session.save(sub_stu);
+			}
+			transaction.commit();
+			flag = true;
+		} catch (HibernateException ex) {
+			transaction.rollback();
+			System.err.println(ex);
+		} finally {
+			session.close();
+		}
+		return flag;
+	}
+	
+	public static boolean createReferences (ArrayList<mReference> listReference) {
+		boolean flag = false;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+			for (mReference reference : listReference) {
+				session.save(reference);
 			}
 			transaction.commit();
 			flag = true;

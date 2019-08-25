@@ -21,11 +21,9 @@ public class mReference {
 	@Column(name = "id")
 	private int id;
 
-	@Basic
 	@Temporal(TemporalType.DATE)
 	private java.util.Date fromDate;
 
-	@Basic
 	@Temporal(TemporalType.DATE)
 	private java.util.Date toDate;
 
@@ -38,7 +36,7 @@ public class mReference {
 	public mReference() {
 	}
 
-	public mReference(int id, Date fromDate, Date toDate, String subjectCode, String subjectName) {
+	public mReference(int id, Date fromDate, String subjectCode, String subjectName, Date toDate) {
 		super();
 		this.id = id;
 		this.fromDate = fromDate;

@@ -2,8 +2,11 @@ package controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -14,6 +17,7 @@ import models.mStudent;
 import models.mSubject_student;
 import hibernate.result;
 import models.mPoint;
+import models.mReference;
 import models.mSchedule;
 
 public class cMinistry {
@@ -113,5 +117,28 @@ public class cMinistry {
 		}
 		Collections.sort(listClassSubject);
 		return listClassSubject;
+	}
+	
+	public static result createReferences(String fromDate, String toDate) {
+		result rs = null;
+		try {
+			Date todate = new SimpleDateFormat("yyyy-MM-dd").parse(toDate);
+			Date fromdate = new SimpleDateFormat("yyyy-MM-dd").parse(fromDate);
+			ArrayList<mSchedule> listSchedule = dMinistry.getAllSchedule();
+			ArrayList<mReference> listReference = new ArrayList<mReference> ();
+			for (mSchedule schedule : listSchedule) {
+				mReference reference = new mReference (1, fromdate, schedule.getSubjectCode(), schedule.getSubjectName(), todate);
+				listReference.add(reference);
+			}
+			boolean created = dMinistry.createReferences(listReference);
+			if (created) {
+				rs = new result (true, "Tao phuc khao thanh cong", "", 0, "");
+			} else {
+				rs = new result (false, "Tao phuc khao that bai", "", 0, "");
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return rs;
 	}
 }
