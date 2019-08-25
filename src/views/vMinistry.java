@@ -371,7 +371,7 @@ public class vMinistry {
 		JButton btnDanhSach_1 = new JButton("Danh sach");
 		btnDanhSach_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (cbbLopTheoMon.getSelectedItem() != null) {
+				if (cbbLop.getSelectedItem() != null) {
 					String cbbClassNameSelected = (String) cbbLop.getSelectedItem();
 					frame.dispose();
 					vStudentClassName window = new vStudentClassName(cbbClassNameSelected, idUser,  userName);
@@ -497,14 +497,26 @@ public class vMinistry {
 	private void loadComboboxDay (JComboBox<String> comboBox) {
 		comboBox.removeAllItems();
 		for (int i = 1; i <= 31; i++ ) {
-			comboBox.addItem(Integer.toString(i));
+			String day = "";
+			if (i < 10) {
+				day = "0" + Integer.toString(i);
+			} else {
+				day = Integer.toString(i);
+			}
+			comboBox.addItem(day);
 		}
 	}
 	
 	private void loadComboboxMonth (JComboBox<String> comboBox) {
 		comboBox.removeAllItems();
 		for (int i = 1; i <= 12; i++ ) {
-			comboBox.addItem(Integer.toString(i));
+			String month = "";
+			if (i < 10) {
+				month = "0" + Integer.toString(i);
+			} else {
+				month = Integer.toString(i);
+			}
+			comboBox.addItem(month);
 		}
 	}
 }

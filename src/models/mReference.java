@@ -2,7 +2,6 @@ package models;
 
 import java.util.Date;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,10 +21,12 @@ public class mReference {
 	private int id;
 
 	@Temporal(TemporalType.DATE)
-	private java.util.Date fromDate;
+	@Column(name = "fromDate")
+	private Date fromDate;
 
 	@Temporal(TemporalType.DATE)
-	private java.util.Date toDate;
+	@Column(name = "toDate")
+	private Date toDate;
 
 	@Column(name = "subjectCode")
 	private String subjectCode;
@@ -36,7 +37,7 @@ public class mReference {
 	public mReference() {
 	}
 
-	public mReference(int id, Date fromDate, String subjectCode, String subjectName, Date toDate) {
+	public mReference(int id, Date fromDate,  Date toDate, String subjectCode, String subjectName) {
 		super();
 		this.id = id;
 		this.fromDate = fromDate;
@@ -53,19 +54,19 @@ public class mReference {
 		this.id = id;
 	}
 
-	public java.util.Date getFromDate() {
+	public Date getFromDate() {
 		return fromDate;
 	}
 
-	public void setFromDate(java.util.Date fromDate) {
+	public void setFromDate(Date fromDate) {
 		this.fromDate = fromDate;
 	}
 
-	public java.util.Date getToDate() {
+	public Date getToDate() {
 		return toDate;
 	}
 
-	public void setToDate(java.util.Date toDate) {
+	public void setToDate(Date toDate) {
 		this.toDate = toDate;
 	}
 

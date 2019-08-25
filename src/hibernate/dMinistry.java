@@ -28,7 +28,7 @@ public class dMinistry {
 			String arrayLine[];
 			while ((line = br.readLine()) != null) {
 				arrayLine = line.split("\\,");
-				mStudent student = new mStudent(0, arrayLine[1], arrayLine[2], arrayLine[3],
+				mStudent student = new mStudent(1, arrayLine[1], arrayLine[2], arrayLine[3],
 						arrayLine[4], arrayLine[5]);
 				listStudent.add(student);
 			}
@@ -228,8 +228,8 @@ public class dMinistry {
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			for (mReference reference : listReference) {
-				session.save(reference);
+			for (mReference ref : listReference) {
+				session.save(ref);
 			}
 			transaction.commit();
 			flag = true;
